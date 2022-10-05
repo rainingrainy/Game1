@@ -9,12 +9,13 @@ namespace Game1
 {
     class player
     {
-        int x, y, width, height;
+        int x, y, width, height, speed;
         Image playerimg;
         Rectangle playerrect;
 
         public player()
         {
+            speed = 10;
             x = 10;
             y = 10;
             width = 100;
@@ -26,6 +27,32 @@ namespace Game1
         public void DrawPlayer(Graphics g)
         {
             g.DrawImage(playerimg, playerrect);
+        }
+
+        public void MovePlayer(string move)
+        {
+            switch (move)
+            {
+                case "left":
+                    x -= speed;
+                    playerrect.Location = new Point(x, y);
+                    break;
+
+                case "right":
+                    x += speed;
+                    playerrect.Location = new Point(x, y);
+                    break;
+
+                case "up":
+                    y -= speed;
+                    playerrect.Location = new Point(x, y);
+                    break;
+
+                case "down":
+                    y += speed;
+                    playerrect.Location = new Point(x, y);
+                    break;
+            }
         }
     }
 }

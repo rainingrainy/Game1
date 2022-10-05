@@ -30,41 +30,53 @@ namespace Game1
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.GamePanel = new Game1.MyPanel();
             this.PlayerTimer = new System.Windows.Forms.Timer(this.components);
+            this.EnemyTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // panel1
+            // GamePanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.Black;
-            this.panel1.Location = new System.Drawing.Point(1, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(798, 452);
-            this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.GamePanel.BackColor = System.Drawing.Color.Gray;
+            this.GamePanel.Location = new System.Drawing.Point(1, 0);
+            this.GamePanel.Name = "GamePanel";
+            this.GamePanel.Size = new System.Drawing.Size(798, 452);
+            this.GamePanel.TabIndex = 0;
+            this.GamePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // PlayerTimer
             // 
             this.PlayerTimer.Enabled = true;
-            this.PlayerTimer.Tick += new System.EventHandler(this.timer1_Tick);
+            this.PlayerTimer.Interval = 1;
+            this.PlayerTimer.Tick += new System.EventHandler(this.PlayerTmr);
+            // 
+            // EnemyTimer
+            // 
+            this.EnemyTimer.Enabled = true;
+            this.EnemyTimer.Interval = 1;
+            this.EnemyTimer.Tick += new System.EventHandler(this.EnemyTmr);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.GamePanel);
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer PlayerTimer;
+        private System.Windows.Forms.Timer EnemyTimer;
+        private MyPanel GamePanel;
     }
 }
 
