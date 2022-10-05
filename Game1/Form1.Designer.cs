@@ -33,6 +33,7 @@ namespace Game1
             this.GamePanel = new Game1.MyPanel();
             this.PlayerTimer = new System.Windows.Forms.Timer(this.components);
             this.EnemyTimer = new System.Windows.Forms.Timer(this.components);
+            this.HitTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // GamePanel
@@ -56,6 +57,12 @@ namespace Game1
             this.EnemyTimer.Interval = 1;
             this.EnemyTimer.Tick += new System.EventHandler(this.EnemyTmr);
             // 
+            // HitTimer
+            // 
+            this.HitTimer.Enabled = true;
+            this.HitTimer.Interval = 1000;
+            this.HitTimer.Tick += new System.EventHandler(this.HitTmr);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -77,6 +84,7 @@ namespace Game1
         private System.Windows.Forms.Timer PlayerTimer;
         private System.Windows.Forms.Timer EnemyTimer;
         private MyPanel GamePanel;
+        private System.Windows.Forms.Timer HitTimer;
     }
 }
 

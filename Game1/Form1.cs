@@ -13,13 +13,19 @@ namespace Game1
     public partial class Form1 : Form
     {
         player player = new player();
-        enemy enemy = new enemy();
-        bool left, right, up, down;
+        enemy[] enemy = new enemy[2];
+        bool left, right, up, down, hit;
         string move;
-        Graphics g;
+        int iframe, i, ecount;
         public Form1()
         {
+            ecount = 2;
             InitializeComponent();
+            for (int i = 0; i < ecount; i++)
+            {
+                int x = 10 + (i * 200);
+                enemy[i] = new enemy(x);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -29,9 +35,11 @@ namespace Game1
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            g = e.Graphics;
-            player.DrawPlayer(g);
-            enemy.DrawEnemy(g);
+            player.DrawPlayer(e.Graphics);
+            for (i = 0; i < ecount; i++)
+            {
+                enemy[i].DrawEnemy(e.Graphics);
+            }
         }
         private void PlayerTmr(object sender, EventArgs e)
         {
@@ -40,30 +48,48 @@ namespace Game1
             if (right) { move = "right"; player.MovePlayer(move); }
             if (up) { move = "up"; player.MovePlayer(move); }
             if (down) { move = "down"; player.MovePlayer(move); }
-
-            if (player.playerrect.IntersectsWith(enemy.enemyrect))
+            foreach (enemy enemies in enemy)
             {
-                GamePanel.BackColor = Color.Red;
+                if (player.playerrect.IntersectsWith(enemies.enemyrect) && hit)
+                {
+                    hit = false;
+                    player.x += 5;
+                    player.playerrect.Location = new Point(player.x, player.y);
+                    GamePanel.BackColor = Color.Red;
+                }
             }
-            else
+            if (hit)
             {
                 GamePanel.BackColor = Color.Gray;
+            }
+        }
+
+        private void HitTmr(object sender, EventArgs e)
+        {
+            iframe++;
+            if (iframe >= 2)
+            {
+                hit = true;
+                iframe = 0;
             }
         }
 
         private void EnemyTmr(object sender, EventArgs e)
         {
             GamePanel.Invalidate();
-            enemy.x += enemy.enemyspeed;
-            if (enemy.x > GamePanel.Right - 50)
+            for (i = 0; i < ecount; i++)
             {
-                enemy.enemyspeed = -enemy.enemyspeed;
+                enemy[i].x += enemy[i].enemyspeed;
+                if (enemy[i].x > GamePanel.Right - 50)
+                {
+                    enemy[i].enemyspeed = -enemy[i].enemyspeed;
+                }
+                if (enemy[i].x < GamePanel.Left)
+                {
+                    enemy[i].enemyspeed = -enemy[i].enemyspeed;
+                }
+                enemy[i].MoveEnemy();
             }
-            if (enemy.x < GamePanel.Left) 
-            {
-                enemy.enemyspeed = -enemy.enemyspeed;
-            }
-            enemy.MoveEnemy();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

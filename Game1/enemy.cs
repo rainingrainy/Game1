@@ -15,10 +15,10 @@ namespace Game1
         int width, height;
         Image enemyimg;
         public Rectangle enemyrect;
-        public enemy()
+        public enemy(int spacing)
         {
-            enemyspeed = 10;
-            x = 10;
+            enemyspeed = 0;
+            x = spacing;
             y = 10;
             width = 100;
             height = 100;

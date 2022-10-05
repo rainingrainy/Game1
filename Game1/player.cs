@@ -9,7 +9,9 @@ namespace Game1
 {
     class player
     {
-        int x, y, width, height, speed;
+        public int x { get;  set; }
+        public int y { get; set; }
+        int width, height, speed;
         Image playerimg;
         public Rectangle playerrect;
 
