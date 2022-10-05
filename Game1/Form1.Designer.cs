@@ -29,7 +29,9 @@ namespace Game1
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.PlayerTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // panel1
@@ -39,6 +41,12 @@ namespace Game1
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(798, 452);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // PlayerTimer
+            // 
+            this.PlayerTimer.Enabled = true;
+            this.PlayerTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -56,6 +64,7 @@ namespace Game1
         #endregion
 
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Timer PlayerTimer;
     }
 }
 

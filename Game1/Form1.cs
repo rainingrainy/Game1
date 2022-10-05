@@ -12,6 +12,8 @@ namespace Game1
 {
     public partial class Form1 : Form
     {
+        player player = new player();
+        Graphics g;
         public Form1()
         {
             InitializeComponent();
@@ -20,6 +22,17 @@ namespace Game1
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            g = e.Graphics;
+            player.DrawPlayer(g);
         }
     }
 }
