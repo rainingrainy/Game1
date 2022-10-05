@@ -13,13 +13,13 @@ namespace Game1
     public partial class Form1 : Form
     {
         player player = new player();
+        enemy enemy = new enemy();
         bool left, right, up, down;
         string move;
         Graphics g;
         public Form1()
         {
             InitializeComponent();
-   
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -31,6 +31,7 @@ namespace Game1
         {
             g = e.Graphics;
             player.DrawPlayer(g);
+            enemy.DrawEnemy(g);
         }
         private void PlayerTmr(object sender, EventArgs e)
         {
@@ -39,11 +40,30 @@ namespace Game1
             if (right) { move = "right"; player.MovePlayer(move); }
             if (up) { move = "up"; player.MovePlayer(move); }
             if (down) { move = "down"; player.MovePlayer(move); }
+
+            if (player.playerrect.IntersectsWith(enemy.enemyrect))
+            {
+                GamePanel.BackColor = Color.Red;
+            }
+            else
+            {
+                GamePanel.BackColor = Color.Gray;
+            }
         }
 
         private void EnemyTmr(object sender, EventArgs e)
         {
-            
+            GamePanel.Invalidate();
+            enemy.x += enemy.enemyspeed;
+            if (enemy.x > GamePanel.Right - 50)
+            {
+                enemy.enemyspeed = -enemy.enemyspeed;
+            }
+            if (enemy.x < GamePanel.Left) 
+            {
+                enemy.enemyspeed = -enemy.enemyspeed;
+            }
+            enemy.MoveEnemy();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

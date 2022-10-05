@@ -11,7 +11,7 @@ namespace Game1
     {
         int x, y, width, height, speed;
         Image playerimg;
-        Rectangle playerrect;
+        public Rectangle playerrect;
 
         public player()
         {
